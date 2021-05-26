@@ -1,5 +1,20 @@
-const fs = require('fs')
+const writeFile = require('./writeFile')
 
-const functionName = process.argv[2] ?? 'myFunction'
+const readline = require('readline')
 
-writeFile(functionName)
+const rl = readline.createInterface({
+  input: process.stdin,
+  output: process.stdout,
+})
+
+rl.question(
+  'Which functions and files would you like to create? Please seperate by comma.',
+  answer => {
+    answer
+      .split(',')
+      .map(name => name.trim())
+      .forEach(answer => writeFile(answer))
+
+    rl.close()
+  }
+)
